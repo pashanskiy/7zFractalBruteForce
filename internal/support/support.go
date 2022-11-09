@@ -9,10 +9,51 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-
 )
 
 const TMPDir = ".7zFractalBruteforce"
+
+var EXTMap = map[string]struct{}{
+	"7Z":       {},
+	"XZ":       {},
+	"BZIP2":    {},
+	"GZIP":     {},
+	"TAR":      {},
+	"ZIP":      {},
+	"WIM":      {},
+	"APFS":     {},
+	"AR":       {},
+	"ARJ":      {},
+	"CAB":      {},
+	"CHM":      {},
+	"CPIO":     {},
+	"CRAMFS":   {},
+	"DMG":      {},
+	"EXT":      {},
+	"FAT":      {},
+	"GPT":      {},
+	"HFS":      {},
+	"IHEX":     {},
+	"ISO":      {},
+	"LZH":      {},
+	"LZMA":     {},
+	"MBR":      {},
+	"MSI":      {},
+	"NSIS":     {},
+	"NTFS":     {},
+	"QCOW2":    {},
+	"RAR":      {},
+	"RPM":      {},
+	"SQUASHFS": {},
+	"UDF":      {},
+	"UEFI":     {},
+	"VDI":      {},
+	"VHD":      {},
+	"VHDX":     {},
+	"VMDK":     {},
+	"XAR":      {},
+	"Z":        {},
+}
 
 type FilePass struct {
 	Pass   string
@@ -57,7 +98,6 @@ func GetFiles(readDir string) []fs.FileInfo {
 		log.Fatal(err)
 	}
 
-	extMap := getEXTMap()
 	for i := 0; i < len(files); i++ {
 		ext := filepath.Ext(files[i].Name())
 		if len(ext) == 0 {
@@ -66,7 +106,7 @@ func GetFiles(readDir string) []fs.FileInfo {
 			continue
 		}
 
-		if _, ok := extMap[strings.ToUpper(ext[1:])]; !ok {
+		if _, ok := EXTMap[strings.ToUpper(ext[1:])]; !ok {
 			files = append(files[:i], files[i+1:]...)
 			i--
 		}
@@ -79,46 +119,46 @@ func GetFiles(readDir string) []fs.FileInfo {
 	return files
 }
 
-func getEXTMap() map[string]struct{} {
-	return map[string]struct{}{
-		"7Z":       {},
-		"XZ":       {},
-		"BZIP2":    {},
-		"GZIP":     {},
-		"TAR":      {},
-		"ZIP":      {},
-		"WIM":      {},
-		"APFS":     {},
-		"AR":       {},
-		"ARJ":      {},
-		"CAB":      {},
-		"CHM":      {},
-		"CPIO":     {},
-		"CRAMFS":   {},
-		"DMG":      {},
-		"EXT":      {},
-		"FAT":      {},
-		"GPT":      {},
-		"HFS":      {},
-		"IHEX":     {},
-		"ISO":      {},
-		"LZH":      {},
-		"LZMA":     {},
-		"MBR":      {},
-		"MSI":      {},
-		"NSIS":     {},
-		"NTFS":     {},
-		"QCOW2":    {},
-		"RAR":      {},
-		"RPM":      {},
-		"SQUASHFS": {},
-		"UDF":      {},
-		"UEFI":     {},
-		"VDI":      {},
-		"VHD":      {},
-		"VHDX":     {},
-		"VMDK":     {},
-		"XAR":      {},
-		"Z":        {},
-	}
-}
+// func getEXTMap() map[string]struct{} {
+// 	return map[string]struct{}{
+// 		"7Z":       {},
+// 		"XZ":       {},
+// 		"BZIP2":    {},
+// 		"GZIP":     {},
+// 		"TAR":      {},
+// 		"ZIP":      {},
+// 		"WIM":      {},
+// 		"APFS":     {},
+// 		"AR":       {},
+// 		"ARJ":      {},
+// 		"CAB":      {},
+// 		"CHM":      {},
+// 		"CPIO":     {},
+// 		"CRAMFS":   {},
+// 		"DMG":      {},
+// 		"EXT":      {},
+// 		"FAT":      {},
+// 		"GPT":      {},
+// 		"HFS":      {},
+// 		"IHEX":     {},
+// 		"ISO":      {},
+// 		"LZH":      {},
+// 		"LZMA":     {},
+// 		"MBR":      {},
+// 		"MSI":      {},
+// 		"NSIS":     {},
+// 		"NTFS":     {},
+// 		"QCOW2":    {},
+// 		"RAR":      {},
+// 		"RPM":      {},
+// 		"SQUASHFS": {},
+// 		"UDF":      {},
+// 		"UEFI":     {},
+// 		"VDI":      {},
+// 		"VHD":      {},
+// 		"VHDX":     {},
+// 		"VMDK":     {},
+// 		"XAR":      {},
+// 		"Z":        {},
+// 	}
+// }
